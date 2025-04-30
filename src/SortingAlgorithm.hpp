@@ -31,14 +31,16 @@ void ordina_famiglia_heap_tree(vector<T>& v, unsigned int n, unsigned int i)
 
     if (largest != i)
 	{
-        swap(v[i],v[largest]);
+		T temp = v[i];
+		v[i] = v[largest];
+		v[largest] = temp;
         ordina_famiglia_heap_tree(v, n, largest);
     }
 }
 
 template<Sortable T>
 void trova_massimo_heap_tree(vector<T>& v, const unsigned int n){
-	unsigned int pos_ultimo_nodo_non_foglia = floor(n/2)-1;
+	int pos_ultimo_nodo_non_foglia = floor(n/2)-1;
 	for(int i = pos_ultimo_nodo_non_foglia; i >=0; i--){
 		ordina_famiglia_heap_tree(v,n,i);
 	}
@@ -52,7 +54,9 @@ void HeapSort(vector<T>& v)
     trova_massimo_heap_tree(v, n);
 
     for (int i = n - 1; i > 0; i--){
-		swap(v[0], v[i]);
+		T temp = v[0];
+		v[0] = v[i];
+		v[i] = temp;
         ordina_famiglia_heap_tree(v, i, 0);
 	}
 }
